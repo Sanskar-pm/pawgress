@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pawgress: Designing Emotional Accountability</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
+<!-- PALETTE: Vibrant Cozy (Coral #FF6B6B, Yellow #FFD93D, Mint #6BCB77, Blue #4D96FF, Navy #1A2E35) -->
+<!-- NARRATIVE PLAN: 1. Introduction. 2. Market Opportunity. 3. UX Wireframes (NEW). 4. Retention Problem vs Solution. 5. Audience Analysis. 6. Monetization Strategy. 7. UX Habit Loop. -->
+<style>
+    body {
+        font-family: 'Quicksand', sans-serif;
+        background-color: #F7F9FA;
+        color: #1A2E35;
+    }
+    .chart-container {
+        position: relative;
+        width: 100%;
+        max-width: 600px;
+        margin-left: auto;
+        margin-right: auto;
+        height: 350px;
+        max-height: 400px;
+    }
+    .wide-chart-container {
+        position: relative;
+        width: 100%;
+        max-width: 800px;
+        margin-left: auto;
+        margin-right: auto;
+        height: 350px;
+        max-height: 400px;
+    }
+    @media (min-width: 768px) {
+        .chart-container { height: 380px; }
+        .wide-chart-container { height: 400px; }
+    }
+    .glass-card {
+        background: #ffffff;
+        border-radius: 1.5rem;
+        box-shadow: 0 10px 25px -5px rgba(26, 46, 53, 0.05), 0 8px 10px -6px rgba(26, 46, 53, 0.01);
+        border: 2px solid rgba(77, 150, 255, 0.1);
+        padding: 2rem;
+    }
+    .blob-bg {
+        background-image: radial-gradient(circle at top right, #FFD93D 0%, transparent 40%),
+                          radial-gradient(circle at bottom left, #4D96FF 0%, transparent 40%);
+        background-attachment: fixed;
+    }
+    /* Wireframe Styles */
+    .phone-mockup {
+        width: 260px;
+        height: 520px;
+        border: 8px solid #1A2E35;
+        border-radius: 2.5rem;
+        position: relative;
+        background: white;
+        overflow: hidden;
+        margin: auto;
+        box-shadow: 0 20px 50px -10px rgba(0,0,0,0.1);
+    }
+    .wf-header { height: 40px; background: #f1f5f9; border-bottom: 1px solid #e2e8f0; }
+    .wf-btn-circle { width: 40px; height: 40px; border-radius: 50%; background: #e2e8f0; }
+    .wf-bar { height: 12px; background: #e2e8f0; border-radius: 6px; }
+</style>
+</head>
+<body class="blob-bg antialiased">
+
+<nav class="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-gray-200">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex justify-between h-16 items-center">
+            <div class="flex-shrink-0 flex items-center gap-2">
+                <span class="text-3xl">🐾</span>
+                <span class="font-bold text-2xl text-[#1A2E35]">Pawgress</span>
+            </div>
+            <div class="hidden md:flex space-x-8 text-sm font-semibold text-[#4D96FF]">
+                <a href="#market" class="hover:text-[#FF6B6B] transition-colors">Market</a>
+                <a href="#wireframes" class="hover:text-[#FF6B6B] transition-colors">Wireframes</a>
+                <a href="#retention" class="hover:text-[#FF6B6B] transition-colors">Retention</a>
+                <a href="#audience" class="hover:text-[#FF6B6B] transition-colors">Audience</a>
+                <a href="#revenue" class="hover:text-[#FF6B6B] transition-colors">Revenue</a>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<header class="py-20 px-4 text-center">
+    <h1 class="text-5xl md:text-7xl font-bold text-[#1A2E35] mb-6 tracking-tight">
+        Designing <span class="text-[#FF6B6B]">Emotional</span> Accountability
+    </h1>
+    <p class="mt-4 text-xl md:text-2xl text-gray-600 max-w-3xl mx-auto font-medium">
+        Replacing the clinical, data-heavy approach of traditional productivity apps with empathetic design, gamification, and virtual companionship.
+    </p>
+</header>
+
+<main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-24 space-y-24">
+
+    <!-- MARKET SECTION -->
+    <section id="market" class="scroll-mt-24">
+        <div class="mb-10 text-center md:text-left">
+            <h2 class="text-3xl font-bold text-[#1A2E35] inline-block border-b-4 border-[#FFD93D] pb-2">The Market Opportunity</h2>
+            <p class="mt-4 text-lg text-gray-600 max-w-4xl">
+                The consumer productivity and digital wellness markets are converging. Gen Z and Millennials are rejecting sterile task managers for "cozy," emotionally resonant applications. Pawgress captures a highly lucrative niche bridging utility and wellness.
+            </p>
+        </div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-10 items-center">
+            <div class="glass-card">
+                <div class="chart-container">
+                    <canvas id="marketChart"></canvas>
+                </div>
+            </div>
+            <div class="space-y-6">
+                <div class="bg-white rounded-xl p-6 shadow-sm border-l-8 border-[#4D96FF]">
+                    <h3 class="text-2xl font-bold text-[#1A2E35]">$4.5B TAM</h3>
+                    <p class="text-gray-600 mt-1 font-medium">Total Addressable Market: Global Consumer Productivity & Digital Wellness Apps.</p>
+                </div>
+                <div class="bg-white rounded-xl p-6 shadow-sm border-l-8 border-[#6BCB77]">
+                    <h3 class="text-2xl font-bold text-[#1A2E35]">$450M SAM</h3>
+                    <p class="text-gray-600 mt-1 font-medium">Serviceable Available Market: Gen Z / Millennial English-speaking users seeking gamified wellness.</p>
+                </div>
+                <div class="bg-white rounded-xl p-6 shadow-sm border-l-8 border-[#FF6B6B]">
+                    <h3 class="text-2xl font-bold text-[#1A2E35]">$15M SOM</h3>
+                    <p class="text-gray-600 mt-1 font-medium">Serviceable Obtainable Market: Targeting 3% of SAM within 36 months via premium conversions.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- WIREFRAMES SECTION -->
+    <section id="wireframes" class="scroll-mt-24">
+        <div class="mb-10 text-center md:text-left">
+            <h2 class="text-3xl font-bold text-[#1A2E35] inline-block border-b-4 border-[#4D96FF] pb-2">UX Blueprint: Low-Fidelity Wireframes</h2>
+            <p class="mt-4 text-lg text-gray-600 max-w-4xl">
+                Pawgress prioritizes the pet as the central focal point. The interface is designed to feel "squishy" and tactile, removing the clinical friction of standard list-making apps.
+            </p>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            <!-- Screen 1: Home/Pet Room -->
+            <div class="text-center">
+                <div class="phone-mockup mb-4 flex flex-col">
+                    <div class="wf-header flex items-center justify-between px-4">
+                        <div class="w-16 h-4 bg-gray-200 rounded"></div>
+                        <div class="w-8 h-4 bg-gray-200 rounded"></div>
+                    </div>
+                    <div class="flex-1 flex flex-col items-center justify-center p-6 bg-slate-50">
+                        <div class="w-32 h-32 rounded-full border-4 border-dashed border-gray-300 flex items-center justify-center mb-8">
+                            <span class="text-4xl">🐶</span>
+                        </div>
+                        <div class="wf-bar w-3/4 mb-4"></div>
+                        <div class="wf-bar w-1/2 mb-2"></div>
+                    </div>
+                    <div class="h-20 border-t flex items-center justify-around px-4">
+                        <div class="wf-btn-circle"></div>
+                        <div class="w-12 h-12 bg-[#4D96FF] rounded-full"></div>
+                        <div class="wf-btn-circle"></div>
+                    </div>
+                </div>
+                <h4 class="font-bold text-[#1A2E35]">Home: The Pet Room</h4>
+                <p class="text-xs text-gray-500 px-4">Ambient presence, health bars, and quick-access to customization.</p>
+            </div>
+
+            <!-- Screen 2: Habit Journal -->
+            <div class="text-center">
+                <div class="phone-mockup mb-4 flex flex-col">
+                    <div class="wf-header flex items-center px-4">
+                        <div class="w-24 h-4 bg-gray-200 rounded"></div>
+                    </div>
+                    <div class="flex-1 p-6 space-y-4">
+                        <div class="p-4 border-2 border-[#6BCB77] rounded-xl flex items-center gap-3">
+                            <div class="w-6 h-6 border-2 border-gray-300 rounded"></div>
+                            <div class="wf-bar w-2/3"></div>
+                        </div>
+                        <div class="p-4 border border-gray-200 rounded-xl flex items-center gap-3">
+                            <div class="w-6 h-6 border-2 border-gray-300 rounded"></div>
+                            <div class="wf-bar w-1/2"></div>
+                        </div>
+                        <div class="p-4 border border-gray-200 rounded-xl flex items-center gap-3">
+                            <div class="w-6 h-6 border-2 border-gray-300 rounded"></div>
+                            <div class="wf-bar w-3/4"></div>
+                        </div>
+                    </div>
+                    <div class="h-20 border-t flex items-center justify-around px-4 bg-white">
+                        <div class="w-8 h-8 bg-gray-200 rounded"></div>
+                        <div class="w-8 h-8 bg-[#4D96FF] rounded"></div>
+                        <div class="w-8 h-8 bg-gray-200 rounded"></div>
+                    </div>
+                </div>
+                <h4 class="font-bold text-[#1A2E35]">Daily Habit Journal</h4>
+                <p class="text-xs text-gray-500 px-4">Minimalist logging with satisfying "squishy" checkmark interactions.</p>
+            </div>
+
+            <!-- Screen 3: Shop/Cosmetics -->
+            <div class="text-center">
+                <div class="phone-mockup mb-4 flex flex-col">
+                    <div class="wf-header flex items-center justify-between px-4 bg-[#FF6B6B]/10">
+                        <div class="w-20 h-4 bg-[#FF6B6B]/30 rounded"></div>
+                        <div class="w-12 h-6 bg-[#FFD93D] rounded-full"></div>
+                    </div>
+                    <div class="flex-1 p-4 grid grid-cols-2 gap-3">
+                        <div class="aspect-square bg-gray-100 rounded-lg flex flex-col items-center justify-center">
+                            <div class="text-2xl">👒</div>
+                            <div class="wf-bar w-1/2 mt-2 h-1"></div>
+                        </div>
+                        <div class="aspect-square bg-gray-100 rounded-lg flex flex-col items-center justify-center">
+                            <div class="text-2xl">🕶️</div>
+                            <div class="wf-bar w-1/2 mt-2 h-1"></div>
+                        </div>
+                        <div class="aspect-square bg-gray-100 rounded-lg flex flex-col items-center justify-center">
+                            <div class="text-2xl">🛋️</div>
+                            <div class="wf-bar w-1/2 mt-2 h-1"></div>
+                        </div>
+                        <div class="aspect-square bg-gray-100 rounded-lg flex flex-col items-center justify-center">
+                            <div class="text-2xl">🎾</div>
+                            <div class="wf-bar w-1/2 mt-2 h-1"></div>
+                        </div>
+                    </div>
+                    <div class="h-20 border-t flex items-center justify-center bg-white px-4">
+                        <div class="w-full h-10 bg-[#FF6B6B] rounded-lg"></div>
+                    </div>
+                </div>
+                <h4 class="font-bold text-[#1A2E35]">Cosmetic Shop</h4>
+                <p class="text-xs text-gray-500 px-4">Conversion point: monetizing desire for self-expression and care.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- RETENTION SECTION -->
+    <section id="retention" class="scroll-mt-24">
+        <div class="mb-10 text-center md:text-left">
+            <h2 class="text-3xl font-bold text-[#1A2E35] inline-block border-b-4 border-[#6BCB77] pb-2">Solving the Retention Cliff</h2>
+            <p class="mt-4 text-lg text-gray-600 max-w-4xl">
+                Traditional trackers suffer massive D30 drop-off. Losing a 100-day streak induces shame, leading to app abandonment. Pawgress replaces this with <strong>Soft Loss Aversion</strong>. Breaking a streak makes your pet sleepy, triggering an empathetic response to return, rather than guilt.
+            </p>
+        </div>
+
+        <div class="glass-card">
+            <div class="text-center mb-6">
+                <h3 class="text-xl font-bold text-[#1A2E35]">Projected User Retention: Pawgress vs. Industry Average</h3>
+            </div>
+            <div class="wide-chart-container">
+                <canvas id="retentionChart"></canvas>
+            </div>
+        </div>
+    </section>
+
+    <!-- AUDIENCE SECTION -->
+    <section id="audience" class="scroll-mt-24">
+        <div class="mb-10 text-center md:text-left">
+            <h2 class="text-3xl font-bold text-[#1A2E35] inline-block border-b-4 border-[#4D96FF] pb-2">Target Audience & Personas</h2>
+            <p class="mt-4 text-lg text-gray-600 max-w-4xl">
+                Pawgress appeals to distinct behavioral segments by balancing aesthetic appeal, gamified accountability, and zero-guilt mechanics. Understanding these resonance points drives our product design and feature prioritization.
+            </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-10 items-center">
+            <div class="space-y-6">
+                <div class="p-6 rounded-xl bg-gradient-to-r from-red-50 to-white border border-red-100">
+                    <div class="flex items-center gap-3 mb-2">
+                        <span class="text-2xl">📚</span>
+                        <h4 class="text-xl font-bold text-[#FF6B6B]">The Overwhelmed Student</h4>
+                    </div>
+                    <p class="text-gray-600 font-medium text-sm">Wants to romanticize study sessions. High anxiety, prone to doom-scrolling. Needs a digital "best friend." High propensity for cosmetic microtransactions.</p>
+                </div>
+                <div class="p-6 rounded-xl bg-gradient-to-r from-blue-50 to-white border border-blue-100">
+                    <div class="flex items-center gap-3 mb-2">
+                        <span class="text-2xl">💼</span>
+                        <h4 class="text-xl font-bold text-[#4D96FF]">The Burnout Professional</h4>
+                    </div>
+                    <p class="text-gray-600 font-medium text-sm">Overwhelmed by corporate Jira boards. Needs low-pressure tracking for work-life balance. Prime candidate for the Pawgress Pro subscription.</p>
+                </div>
+                <div class="p-6 rounded-xl bg-gradient-to-r from-green-50 to-white border border-green-100">
+                    <div class="flex items-center gap-3 mb-2">
+                        <span class="text-2xl">🧠</span>
+                        <h4 class="text-xl font-bold text-[#6BCB77]">The ADHD "Sprint" Tracker</h4>
+                    </div>
+                    <p class="text-gray-600 font-medium text-sm">Struggles with executive dysfunction and object permanence. Requires ambient accountability (widgets) and high visual rewards. High brand loyalty.</p>
+                </div>
+            </div>
+            <div class="glass-card">
+                <div class="chart-container">
+                    <canvas id="audienceChart"></canvas>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- REVENUE SECTION -->
+    <section id="revenue" class="scroll-mt-24">
+        <div class="mb-10 text-center md:text-left">
+            <h2 class="text-3xl font-bold text-[#1A2E35] inline-block border-b-4 border-[#FF6B6B] pb-2">Business & Revenue Engine</h2>
+            <p class="mt-4 text-lg text-gray-600 max-w-4xl">
+                A Freemium Hybrid Model prioritizing ethical monetization. No pay-to-win mechanics. Revenue is driven by the "Ikea Effect" (customization investment) and advanced power-user utility.
+            </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-10 items-center">
+            <div class="glass-card">
+                <div class="chart-container">
+                    <canvas id="revenueChart"></canvas>
+                </div>
+            </div>
+            <div class="space-y-8">
+                <div class="flex items-start gap-4">
+                    <div class="bg-[#FF6B6B] text-white p-3 rounded-full text-xl font-bold">40%</div>
+                    <div>
+                        <h4 class="text-xl font-bold text-[#1A2E35]">Microtransactions</h4>
+                        <p class="text-gray-600 mt-1 font-medium text-sm">Users purchase "Gems" for premium room themes, accessories, and animations. Leverages self-expression.</p>
+                    </div>
+                </div>
+                <div class="flex items-start gap-4">
+                    <div class="bg-[#4D96FF] text-white p-3 rounded-full text-xl font-bold">40%</div>
+                    <div>
+                        <h4 class="text-xl font-bold text-[#1A2E35]">Pawgress Pro Subscription</h4>
+                        <p class="text-gray-600 mt-1 font-medium text-sm">~$4.99/mo for advanced habit analytics, unlimited tracking, exclusive drops, and unlimited social connections.</p>
+                    </div>
+                </div>
+                <div class="flex items-start gap-4">
+                    <div class="bg-[#FFD93D] text-[#1A2E35] p-3 rounded-full text-xl font-bold">20%</div>
+                    <div>
+                        <h4 class="text-xl font-bold text-[#1A2E35]">Premium Specialized Pets</h4>
+                        <p class="text-gray-600 mt-1 font-medium text-sm">High-ticket, one-time purchases ($4.99-$9.99) for highly requested unique species (e.g., Dragons, Red Pandas).</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+</main>
+
+<script>
+    function wrapLabelFunc(labels) {
+        return labels.map(label => {
+            if (typeof label === 'string' && label.length > 16) {
+                let words = label.split(' ');
+                let lines = [];
+                let currentLine = '';
+                for (let i = 0; i < words.length; i++) {
+                    if ((currentLine + words[i]).length > 16) {
+                        if (currentLine !== '') {
+                            lines.push(currentLine.trim());
+                            currentLine = '';
+                        }
+                    }
+                    currentLine += words[i] + ' ';
+                }
+                if (currentLine.trim() !== '') {
+                    lines.push(currentLine.trim());
+                }
+                return lines;
+            }
+            return label;
+        });
+    }
+
+    const universalTooltipConfig = {
+        callbacks: {
+            title: function(tooltipItems) {
+                const item = tooltipItems[0];
+                let label = item.chart.data.labels[item.dataIndex];
+                if (Array.isArray(label)) {
+                    return label.join(' ');
+                } else {
+                    return label;
+                }
+            }
+        }
+    };
+
+    Chart.defaults.font.family = "'Quicksand', sans-serif";
+
+    const ctxMarket = document.getElementById('marketChart').getContext('2d');
+    new Chart(ctxMarket, {
+        type: 'bar',
+        data: {
+            labels: wrapLabelFunc(['Total Addressable Market', 'Serviceable Available Market', 'Serviceable Obtainable Market (36m)']),
+            datasets: [{
+                label: 'Market Size (Millions USD)',
+                data: [4500, 450, 15],
+                backgroundColor: ['#4D96FF', '#6BCB77', '#FF6B6B'],
+                borderRadius: 8,
+                borderWidth: 0
+            }]
+        },
+        options: {
+            maintainAspectRatio: false,
+            plugins: {
+                legend: { display: false },
+                tooltip: universalTooltipConfig
+            },
+            scales: {
+                y: {
+                    type: 'logarithmic',
+                    title: { display: true, text: 'USD (Millions) - Log Scale', font: {weight: 'bold'} },
+                    ticks: {
+                        callback: function(value) {
+                            if (value === 10 || value === 100 || value === 1000 || value === 10000) {
+                                return '$' + value + 'M';
+                            }
+                            return '';
+                        }
+                    },
+                    grid: { color: 'rgba(26, 46, 53, 0.05)' }
+                },
+                x: {
+                    ticks: { font: {weight: '600'} },
+                    grid: { display: false }
+                }
+            }
+        }
+    });
+
+    const ctxRetention = document.getElementById('retentionChart').getContext('2d');
+    new Chart(ctxRetention, {
+        type: 'line',
+        data: {
+            labels: ['Day 1', 'Day 7', 'Day 14', 'Day 30'],
+            datasets: [
+                {
+                    label: 'Pawgress Targets (Emotional Design)',
+                    data: [50, 35, 25, 15],
+                    borderColor: '#6BCB77',
+                    backgroundColor: 'rgba(107, 203, 119, 0.1)',
+                    borderWidth: 4,
+                    pointBackgroundColor: '#6BCB77',
+                    pointRadius: 6,
+                    fill: true,
+                    tension: 0.4
+                },
+                {
+                    label: 'Industry Average (Traditional Utilities)',
+                    data: [30, 10, 5, 2],
+                    borderColor: '#1A2E35',
+                    borderWidth: 3,
+                    borderDash: [5, 5],
+                    pointBackgroundColor: '#1A2E35',
+                    pointRadius: 5,
+                    fill: false,
+                    tension: 0.4
+                }
+            ]
+        },
+        options: {
+            maintainAspectRatio: false,
+            plugins: {
+                legend: { position: 'top', labels: { font: {weight: 'bold'} } },
+                tooltip: universalTooltipConfig
+            },
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    max: 60,
+                    title: { display: true, text: 'Retention Rate (%)', font: {weight: 'bold'} },
+                    grid: { color: 'rgba(26, 46, 53, 0.05)' }
+                },
+                x: { grid: { display: false } }
+            }
+        }
+    });
+
+    const ctxAudience = document.getElementById('audienceChart').getContext('2d');
+    new Chart(ctxAudience, {
+        type: 'radar',
+        data: {
+            labels: wrapLabelFunc(['Aesthetic & Cozy Appeal', 'Gamified Accountability', 'Raw Utility & Focus', 'Zero-Guilt Mechanics', 'Social Sharing']),
+            datasets: [
+                {
+                    label: 'The Student',
+                    data: [9, 7, 5, 6, 9],
+                    backgroundColor: 'rgba(255, 107, 107, 0.2)',
+                    borderColor: '#FF6B6B',
+                    pointBackgroundColor: '#FF6B6B',
+                    borderWidth: 2
+                },
+                {
+                    label: 'Burnout Pro',
+                    data: [6, 4, 8, 9, 3],
+                    backgroundColor: 'rgba(77, 150, 255, 0.2)',
+                    borderColor: '#4D96FF',
+                    pointBackgroundColor: '#4D96FF',
+                    borderWidth: 2
+                },
+                {
+                    label: 'ADHD User',
+                    data: [7, 9, 6, 10, 5],
+                    backgroundColor: 'rgba(107, 203, 119, 0.2)',
+                    borderColor: '#6BCB77',
+                    pointBackgroundColor: '#6BCB77',
+                    borderWidth: 2
+                }
+            ]
+        },
+        options: {
+            maintainAspectRatio: false,
+            plugins: {
+                legend: { position: 'bottom', labels: { font: {weight: 'bold'} } },
+                tooltip: universalTooltipConfig
+            },
+            scales: {
+                r: {
+                    min: 0, max: 10, ticks: { display: false },
+                    pointLabels: { font: {weight: '600'} }
+                }
+            }
+        }
+    });
+
+    const ctxRevenue = document.getElementById('revenueChart').getContext('2d');
+    new Chart(ctxRevenue, {
+        type: 'doughnut',
+        data: {
+            labels: wrapLabelFunc(['Cosmetics (Microtransactions)', 'Pawgress Pro (Subscriptions)', 'Premium Specialized Pets']),
+            datasets: [{
+                data: [40, 40, 20],
+                backgroundColor: ['#FF6B6B', '#4D96FF', '#FFD93D'],
+                borderWidth: 0,
+                hoverOffset: 6
+            }]
+        },
+        options: {
+            maintainAspectRatio: false,
+            cutout: '70%',
+            plugins: {
+                legend: { position: 'bottom', labels: { font: {weight: 'bold'} } },
+                tooltip: universalTooltipConfig
+            }
+        }
+    });
+</script>
+</body>
+</html>
